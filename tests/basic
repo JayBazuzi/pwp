@@ -8,7 +8,6 @@ trap 'rm -rf $"TEMP_FILE" $"TEMP_DIR"' EXIT
 TARGET="$( dirname "$0")/_$( basename "$0").py"
 PYTHON_VERSION=$( grep '^assert platform.python_version() == ".*"$' "$TARGET" | cut -d\" -f 2 )
 
-uname --all
 UNAME_OPERATING_SYSTEM=$( uname --operating-system )
 if [ "$UNAME_OPERATING_SYSTEM" = 'Msys' ]; then
 
@@ -20,13 +19,16 @@ if [ "$UNAME_OPERATING_SYSTEM" = 'Msys' ]; then
     unzip -q "$TEMP_FILE" -d "$TEMP_DIR"
     PYTHON="$TEMP_DIR/python"
 
-elif [ "$UNAME_OPERATING_SYSTEM" = 'ubuntu' ]; then
+elif [ "$UNAME_OPERATING_SYSTEM" = 'GNU/Linux' ]; then
     curl \
         https://www.python.org/ftp/python/3.10.3/Python-3.10.3.tar.xz \
         --output "$TEMP_FILE" \
         --no-progress-meter \
 
     "$TEMP_DIR/configure"
+else
+    echo "Unknown operating system: $UNAME_OPERATING_SYSTEM"
+    exit 1
 fi
 
 
