@@ -31,7 +31,8 @@ elif [ "$UNAME_OPERATING_SYSTEM" = 'GNU/Linux' ]; then
     # ./configure --with-ensurepip=install
     # make -j
     # ls -l
-    sudo apt-get update --quiet
+
+    # sudo apt-get update --quiet
     sudo apt-get install --quiet --assume-yes "python$PYTHON_VERSION"
     ls -l /usr/bin/python*
     PYTHON="/usr/bin/$PYTHON_VERSION"
