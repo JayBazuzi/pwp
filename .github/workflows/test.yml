@@ -4,12 +4,16 @@ on: [push]
 
 jobs:
   test:
+    strategy:
+      matrix:
+        python-version: [ 3.10.4 ]
+  
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v3
         with:
-          python-version: '3.10.4'
+          python-version: ${{ matrix.python-version }}
 
       - id: run-basic-test
         run: echo "::set-output name=OUTPUT::$(tests/basic.ps1)"
