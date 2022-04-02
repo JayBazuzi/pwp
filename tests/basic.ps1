@@ -1,7 +1,7 @@
 $ErrorActionPreference = 'Stop'
 Set-PSDebug -Strict
 
-# Set-PSDebug -Trace 1
+Set-PSDebug -Trace 1
 # Register-EngineEvent PowerShell.Exiting -Action { Set-PSDebug -Trace 0 } | Out-Null
 
 
@@ -9,10 +9,7 @@ $target = [System.IO.Path]::ChangeExtension($PSCommandPath, '.py')
 
 # # TODO: find these
 # PYTHON_VERSION="3.8" # Github actions ubuntu
-$pythonMajorMinorVersion = "310" # Windows on my laptop
-
-
-# TODO: find this
+# $pythonMajorMinorVersion = "310" # Windows on my laptop
 # $python="$env:LocalAppData/Programs/Python/Python$pythonMajorMinorVersion/python.exe"
 $python=(Get-Command python.exe).Source
 if ( ! (Test-Path $python) ) { throw "$python not found" }
