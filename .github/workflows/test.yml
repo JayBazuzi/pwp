@@ -1,0 +1,26 @@
+name: CI
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - id: run-basic-test
+        run: echo "::set-output name=OUTPUT::$(tests/basic)"
+
+      - id: check-result
+        if: steps.run-basic-test.outputs.OUTPUT != 'Applesauce'
+        run: |
+          echo "OUTPUT was '${{ steps.run-basic-test.outputs.OUTPUT }}'"
+          exit 1
+
+  actions-debugging-is-disabled:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Ensure actions debugging is disabled
+          run: |
+            [[ "${{ secrets.ACTIONS_STEP_DEBUG   }}" != "true" ]] || exit 1
+            [[ "${{ secrets.ACTIONS_RUNNER_DEBUG }}" != "true" ]] || exit 1
