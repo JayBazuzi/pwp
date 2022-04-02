@@ -1,26 +1,34 @@
 #! /bin/sh
-set -x # TODO: remove
+set -o posix # TODO: remove
 set -eu
 
 TEMP_FILE=$( mktemp --suffix=.zip )
 TEMP_DIR=$( mktemp --directory )
+trap 'rm -rf $"TEMP_FILE" $"TEMP_DIR"' EXIT
 
 TARGET="$( dirname "$0")/_$( basename "$0").py"
-#grep --perl-regex 'assert platform.python_version\(\) == "(3.10.4)"' "$TARGET"
-sed \
-    -i "$TARGET" \
-    -s
-    's/assert platform.*(3\.10\.4).*/\1/'
+PYTHON_VERSION=$( grep '^assert platform.python_version() == ".*"$' "$TARGET" | cut -d\" -f 2 )
 
-PYTHON_VERSION=3.10.4
+uname --all
+UNAME_OPERATING_SYSTEM=$( uname --operating-system )
+if [ "$UNAME_OPERATING_SYSTEM" = 'Msys' ]; then
 
-curl \
-    "https://www.python.org/ftp/python/$PYTHON_VERSION/python-$PYTHON_VERSION-embed-amd64.zip" \
-    --output "$TEMP_FILE" \
-    --no-progress-meter \
+    curl \
+        "https://www.python.org/ftp/python/$PYTHON_VERSION/python-$PYTHON_VERSION-embed-amd64.zip" \
+        --output "$TEMP_FILE" \
+        --no-progress-meter \
 
-unzip -q "$TEMP_FILE" -d "$TEMP_DIR"
-PYTHON="$TEMP_DIR/python"
+    unzip -q "$TEMP_FILE" -d "$TEMP_DIR"
+    PYTHON="$TEMP_DIR/python"
+
+elif [ "$UNAME_OPERATING_SYSTEM" == 'ubuntu' ]; then
+    curl \
+        https://www.python.org/ftp/python/3.10.3/Python-3.10.3.tar.xz \
+        --output "$TEMP_FILE" \
+        --no-progress-meter \
+
+    "$TEMP_DIR/configure"
+fi
 
 
 "$PYTHON" "$TARGET" "$@"
