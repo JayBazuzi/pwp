@@ -1,7 +1,7 @@
 $ErrorActionPreference = 'Stop'
 Set-PSDebug -Strict
 
-Set-PSDebug -Trace 1
+# Set-PSDebug -Trace 1
 # Register-EngineEvent PowerShell.Exiting -Action { Set-PSDebug -Trace 0 } | Out-Null
 
 
