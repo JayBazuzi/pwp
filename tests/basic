@@ -1,7 +1,17 @@
 #! /bin/sh
 set -eu
-set -x # TODO: remove
+
+TEMP_FILE=$( mktemp --suffix=.zip )
+
+curl \
+    https://www.python.org/ftp/python/3.10.4/python-3.10.4-embed-amd64.zip \
+    --output "${TEMP_FILE}" \
+    --no-progress-meter \
+
+unzip "${TEMP_FILE}"
+
+
 
 # TODO:  python=
-TARGET="$( dirname "$0 ")/_$( basename "$0 ").py"
-python "${TARGET}" "$@"
+TARGET="$( dirname "$0")/_$( basename "$0").py"
+echo python "${TARGET}" "$@"
