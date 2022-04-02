@@ -8,6 +8,8 @@
 - check for latest version of self
 - dependabot checks if self is out of date
 - can download from an internal cache
+? Is it important to reuse python between runs, for perf? 
+? one-time bootstrap venv?
 
 ## hygiene
 - CI check for TODO comments
