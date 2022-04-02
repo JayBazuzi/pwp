@@ -2,16 +2,18 @@
 set -eu
 
 TEMP_FILE=$( mktemp --suffix=.zip )
+TEMP_DIR=$( mktemp --directory )
+
+PYTHON_VERSION=3.10.4
 
 curl \
-    https://www.python.org/ftp/python/3.10.4/python-3.10.4-embed-amd64.zip \
-    --output "${TEMP_FILE}" \
+    "https://www.python.org/ftp/python/$PYTHON_VERSION/python-$PYTHON_VERSION-embed-amd64.zip" \
+    --output "$TEMP_FILE" \
     --no-progress-meter \
 
-unzip "${TEMP_FILE}"
+unzip -q "$TEMP_FILE" -d "$TEMP_DIR"
+PYTHON="$TEMP_DIR/python"
 
-
-
-# TODO:  python=
 TARGET="$( dirname "$0")/_$( basename "$0").py"
-echo python "${TARGET}" "$@"
+
+"$PYTHON" "$TARGET" "$@"
