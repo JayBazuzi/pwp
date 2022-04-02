@@ -18,3 +18,4 @@
         use ${}
 - add bash/etc. linting and formatting to CI
 - powershell/cmd/bash/zsh? on all platforms
+- test against all versions of Python
