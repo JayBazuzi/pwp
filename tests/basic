@@ -27,10 +27,10 @@ elif [ "$UNAME_OPERATING_SYSTEM" = 'GNU/Linux' ]; then
         --no-progress-meter \
 
     cd $TEMP_DIR
-    ll
+    ls -l
     ./configure --with-ensurepip=install
     make -j
-    ll
+    ls -l
 else
     echo "Unknown operating system: $UNAME_OPERATING_SYSTEM"
     exit 1
