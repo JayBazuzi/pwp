@@ -14,8 +14,7 @@ $pythonMajorMinorVersion = "310" # Windows on my laptop
 
 # TODO: find this
 # $python="$env:LocalAppData/Programs/Python/Python$pythonMajorMinorVersion/python.exe"
-$python=python.exe
-gcm python.exe
+$python=(Get-Command python.exe).Source
 if ( ! (Test-Path $python) ) { throw "$python not found" }
 
 function CreateAndActivateVenv {
