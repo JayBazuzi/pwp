@@ -1,8 +1,16 @@
 #! /bin/sh
+set -x # TODO: remove
 set -eu
 
 TEMP_FILE=$( mktemp --suffix=.zip )
 TEMP_DIR=$( mktemp --directory )
+
+TARGET="$( dirname "$0")/_$( basename "$0").py"
+#grep --perl-regex 'assert platform.python_version\(\) == "(3.10.4)"' "$TARGET"
+sed \
+    -i "$TARGET" \
+    -s
+    's/assert platform.*(3\.10\.4).*/\1/'
 
 PYTHON_VERSION=3.10.4
 
@@ -14,6 +22,5 @@ curl \
 unzip -q "$TEMP_FILE" -d "$TEMP_DIR"
 PYTHON="$TEMP_DIR/python"
 
-TARGET="$( dirname "$0")/_$( basename "$0").py"
 
 "$PYTHON" "$TARGET" "$@"
