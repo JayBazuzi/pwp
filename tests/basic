@@ -2,44 +2,32 @@
 set -x
 set -eu
 
-TEMP_FILE=$( mktemp --suffix=.zip )
-TEMP_DIR=$( mktemp --directory )
-trap 'rm -rf $"TEMP_FILE" $"TEMP_DIR"' EXIT
-
 TARGET="$( dirname "$0")/_$( basename "$0").py"
-PYTHON_VERSION=$( grep '^assert platform.python_version() == ".*"$' "$TARGET" | cut -d\" -f 2 )
+# TODO: find these
+PYTHON_VERSION="3.8" # Github actions ubuntu
+PYTHON_MAJOR_MINOR_VERSION="310" # Windows on my laptop
+
+REQUIREMENTS_FILE=$( mktemp --suffix=-requirements.txt )
+VENV_DIR=$( mktemp -d --suffix=-venv )
+trap 'rm -rf "$REQUIREMENTS_FILE" "$VENV_DIR" ' EXIT
+
 
 UNAME_OPERATING_SYSTEM=$( uname --operating-system )
 if [ "$UNAME_OPERATING_SYSTEM" = 'Msys' ]; then
-
-    curl \
-        "https://www.python.org/ftp/python/$PYTHON_VERSION/python-$PYTHON_VERSION-embed-amd64.zip" \
-        --output "$TEMP_FILE" \
-        --no-progress-meter \
-
-    unzip -q "$TEMP_FILE" -d "$TEMP_DIR"
-    PYTHON="$TEMP_DIR/python"
-
+    # TODO: find this
+    PYTHON="C:/Users/jay/AppData/Local/Programs/Python/Python$PYTHON_MAJOR_MINOR_VERSION/python.exe"
 elif [ "$UNAME_OPERATING_SYSTEM" = 'GNU/Linux' ]; then
-    # curl \
-    #     "https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tar.xz" \
-    #     --output "$TEMP_FILE" \
-    #     --no-progress-meter \
-
-    # cd "$TEMP_DIR/Python-$PYTHON_VERSION.tar/Python-$PYTHON_VERSION/"
-    # ls -l
-    # ./configure --with-ensurepip=install
-    # make -j
-    # ls -l
-
-    sudo apt-get update --quiet  --quiet
-    sudo apt-get install --quiet  --quiet --assume-yes "python$PYTHON_VERSION"
-    ls -l /usr/bin/python*
     PYTHON="/usr/bin/$PYTHON_VERSION"
 else
     echo "Unknown operating system: $UNAME_OPERATING_SYSTEM"
     exit 1
 fi
+"$PYTHON" -m venv $VENV_DIR
+. "$VENV_DIR/Scripts/Activate"
+PYTHON="$VENV_DIR/Scripts/python"
 
+grep '^## PWP_REQUIRE: .*$' "$TARGET" | cut -d' ' -f 3 >> "$REQUIREMENTS_FILE"
+# "$PYTHON" -m pip upgrade pip --quiet
+"$PYTHON" -m pip install --requirement --quiet "$REQUIREMENTS_FILE"
 
 "$PYTHON" "$TARGET" "$@"

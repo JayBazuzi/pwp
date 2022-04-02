@@ -4,12 +4,12 @@ on: [push]
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
 
       - id: run-basic-test
-        run: echo "::set-output name=OUTPUT::$(tests/basic)"
+        run: echo "::set-output name=OUTPUT::$(tests/basic.ps1)"
 
       - id: check-result
         if: steps.run-basic-test.outputs.OUTPUT != 'Applesauce'

@@ -10,6 +10,7 @@
 - can download from an internal cache
 ? Is it important to reuse python between runs, for perf? 
 ? one-time bootstrap venv?
+- env. var. for debugging output
 
 ## hygiene
 - CI check for TODO comments
