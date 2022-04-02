@@ -1,14 +1,18 @@
 # TODO
 
-- add bash/etc. linting and formatting to CI
-- python version
-- modules
-- powershell/cmd/bash/zsh?
-- rename/link
+## features
+- can specify python version
+- can specify modules
+- can rename or link the wrapper script to find the next one rename/link
 - errors shall propagate
-- https://www.python.org/ftp/python/3.10.4/python-3.10.4-embed-amd64.zip
-- check for latest version of self? dependabot?
+- check for latest version of self
+- dependabot checks if self is out of date
+- can download from an internal cache
+
+## hygiene
 - CI check for TODO comments
 - lint all the things
     - bash
         use ${}
+- add bash/etc. linting and formatting to CI
+- powershell/cmd/bash/zsh? on all platforms
