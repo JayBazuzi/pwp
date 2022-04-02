@@ -1,4 +1,5 @@
 #! /bin/sh
+set -x
 set -eu
 
 TEMP_FILE=$( mktemp --suffix=.zip )
@@ -25,7 +26,11 @@ elif [ "$UNAME_OPERATING_SYSTEM" = 'GNU/Linux' ]; then
         --output "$TEMP_FILE" \
         --no-progress-meter \
 
-    "$TEMP_DIR/configure"
+    cd $TEMP_DIR
+    ll
+    ./configure --with-ensurepip=install
+    make -j
+    ll
 else
     echo "Unknown operating system: $UNAME_OPERATING_SYSTEM"
     exit 1
