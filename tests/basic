@@ -1,4 +1,7 @@
 #! /bin/sh
+set -eu
+set -x # TODO: remove
 
-TARGET=
-python basic.py
+# TODO:  python=
+TARGET="$( dirname "$0 ")/_$( basename "$0 ").py"
+python "${TARGET}" "$@"
