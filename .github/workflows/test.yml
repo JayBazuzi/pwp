@@ -1,13 +1,10 @@
 name: CI
-
 on: [push]
-
 jobs:
   test:
     strategy:
       matrix:
         python-version: [ 3.10.4 ]
-  
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
@@ -23,7 +20,6 @@ jobs:
         run: |
           echo "OUTPUT was '${{ steps.run-basic-test.outputs.OUTPUT }}'"
           exit 1
-
   actions-debugging-is-disabled:
     runs-on: ubuntu-latest
     steps:
