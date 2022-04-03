@@ -17,7 +17,7 @@ if [ "$UNAME_OPERATING_SYSTEM" = 'Msys' ]; then
     # TODO: find this
     PYTHON="C:/Users/jay/AppData/Local/Programs/Python/Python$PYTHON_MAJOR_MINOR_VERSION/python.exe"
 elif [ "$UNAME_OPERATING_SYSTEM" = 'GNU/Linux' ]; then
-    PYTHON="/usr/bin/$PYTHON_VERSION"
+    PYTHON="/usr/bin/python$PYTHON_VERSION"
 else
     echo "Unknown operating system: $UNAME_OPERATING_SYSTEM"
     exit 1
