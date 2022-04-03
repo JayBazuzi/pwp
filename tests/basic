@@ -23,6 +23,8 @@ else
     exit 1
 fi
 "$PYTHON" -m venv $VENV_DIR
+ls -l "$VENV_DIR/
+ls -l "$VENV_DIR/Scripts
 . "$VENV_DIR/Scripts/Activate"
 PYTHON="$VENV_DIR/Scripts/python"
 
