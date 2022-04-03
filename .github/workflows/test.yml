@@ -4,21 +4,20 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [windows-latest]
-        python-version: [ 3.10.4 ]
-        include:
-          - os: ubuntu-latest
-            python-version: 3.8.x
+        _: [
+          { runs-on: windows-latest, python-version: 3.10.4, extension: .ps1 },
+          { runs-on: ubuntu-latest,  python-version: 3.8.x,  extension: "" },
+        ]
 
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix._.runs-on }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v3
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: ${{ matrix._.python-version }}
 
       - id: run-basic-test
-        run: echo "::set-output name=OUTPUT::$(tests/basic.ps1)"
+        run: echo "::set-output name=OUTPUT::$(tests/basic${{ matmrix._.extension }})"
 
       - id: check-result
         if: steps.run-basic-test.outputs.OUTPUT != 'Applesauce'
