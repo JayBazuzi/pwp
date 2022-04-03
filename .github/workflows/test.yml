@@ -6,7 +6,7 @@ jobs:
       matrix:
         _: [
           { runs-on: windows-latest, python-version: 3.10.4, extension: .ps1 },
-          { runs-on: ubuntu-latest,  python-version: 3.8.x,  extension: "" },
+          { runs-on: ubuntu-latest , python-version: 3.8.x , extension: "" },
         ]
 
     runs-on: ${{ matrix._.runs-on }}
@@ -17,7 +17,7 @@ jobs:
           python-version: ${{ matrix._.python-version }}
 
       - id: run-basic-test
-        run: echo "::set-output name=OUTPUT::$(tests/basic${{ matmrix._.extension }})"
+        run: echo "::set-output name=OUTPUT::$(tests/basic${{ matrix._.extension }})"
 
       - id: check-result
         if: steps.run-basic-test.outputs.OUTPUT != 'Applesauce'
