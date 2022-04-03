@@ -6,7 +6,7 @@ jobs:
       fail-fast: false
       matrix:
         _: [
-          # { runs-on: windows-latest, python-version: 3.10.4, extension: .ps1 },
+          { runs-on: windows-latest, python-version: 3.10.4, extension: .ps1 },
           { runs-on: ubuntu-latest , python-version: 3.8.x , extension: "" },
         ]
 
