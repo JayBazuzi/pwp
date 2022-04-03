@@ -30,6 +30,6 @@ PYTHON="$VENV_DIR/bin/python$PYTHON_VERSION"
 
 grep '^## PWP_REQUIRE: .*$' "$TARGET" | cut -d' ' -f 3 >> "$REQUIREMENTS_FILE"
 # "$PYTHON" -m pip upgrade pip --quiet
-"$PYTHON" -m pip install --requirement --quiet "$REQUIREMENTS_FILE"
+"$PYTHON" -m pip install --quiet --requirement "$REQUIREMENTS_FILE"
 
 "$PYTHON" "$TARGET" "$@"
