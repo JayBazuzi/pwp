@@ -2,7 +2,7 @@
 set -x
 set -eu
 
-TARGET="$( dirname "$0")/_$( basename "$0").py"
+TARGET="$( dirname "$0")/$( basename "$0").py"
 # TODO: find these
 PYTHON_VERSION="3.8" # Github actions ubuntu
 PYTHON_MAJOR_MINOR_VERSION="310" # Windows on my laptop
