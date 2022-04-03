@@ -22,9 +22,11 @@ else
     echo "Unknown operating system: $UNAME_OPERATING_SYSTEM"
     exit 1
 fi
-"$PYTHON" -m venv $VENV_DIR/
+"$PYTHON" -m venv "$VENV_DIR"
+# shellcheck source=/dev/null
 . "$VENV_DIR/bin/activate"
-PYTHON="$VENV_DIR/Scripts/python$PYTHON_VERSION"
+ls -l "$VENV_DIR/bin/"
+PYTHON="$VENV_DIR/bin/python$PYTHON_VERSION"
 
 grep '^## PWP_REQUIRE: .*$' "$TARGET" | cut -d' ' -f 3 >> "$REQUIREMENTS_FILE"
 # "$PYTHON" -m pip upgrade pip --quiet
