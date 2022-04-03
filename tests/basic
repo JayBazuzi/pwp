@@ -23,9 +23,7 @@ else
     exit 1
 fi
 "$PYTHON" -m venv $VENV_DIR/
-ls -l "$VENV_DIR"
-ls -l "$VENV_DIR/bin"
-. "$VENV_DIR/bin/Activate"
+. "$VENV_DIR/bin/activate"
 PYTHON="$VENV_DIR/Scripts/python"
 
 grep '^## PWP_REQUIRE: .*$' "$TARGET" | cut -d' ' -f 3 >> "$REQUIREMENTS_FILE"
