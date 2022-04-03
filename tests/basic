@@ -24,7 +24,7 @@ else
 fi
 "$PYTHON" -m venv $VENV_DIR/
 . "$VENV_DIR/bin/activate"
-PYTHON="$VENV_DIR/Scripts/python"
+PYTHON="$VENV_DIR/Scripts/python$PYTHON_VERSION"
 
 grep '^## PWP_REQUIRE: .*$' "$TARGET" | cut -d' ' -f 3 >> "$REQUIREMENTS_FILE"
 # "$PYTHON" -m pip upgrade pip --quiet
