@@ -1,6 +1,6 @@
 #!/bin/env python3
 
 ## PWP_REQUIRE: pyyaml==6.0
-import pyyaml
+import yaml
 
-print("Applesauce") 
+print("Applesauce")
